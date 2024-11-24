@@ -39,4 +39,11 @@ public class Payment {
     @JsonIgnore
     @OneToMany(mappedBy = "payment")
     private List<OrderDetail> orderDetails;
+
+    @PrePersist
+    private void setPaymentDate() {
+        if (this.paymentDate == null) {
+            this.paymentDate = LocalDateTime.now();
+        }
+    }
 }

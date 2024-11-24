@@ -36,9 +36,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .anyRequest().authenticated()  // Protect all endpoints
-                .and()
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().authenticated()  // Protect all endpoints
+                )
+                .csrf(csrf -> csrf.disable())  // Disable CSRF
                 .httpBasic(httpBasic -> {});  // Enable Basic Authentication
 
         return http.build();
